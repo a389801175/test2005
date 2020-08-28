@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Document</title><link rel=stylesheet href=../lib/bootstrap-3.3.7-dist/css/bootstrap.css><link rel=stylesheet href=../css/reset.css><link rel=stylesheet href=../css/cart.css></head><body><div id=header><div class=header><a href=#><div class=logo></div><div class=title><h1>我的购物车</h1><span>让每个人都能享受科技的乐趣</span><p>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</p></div></a></div></div><div class=main><div class=container><div class=cart-container><div class=main-haed><div class="list-head clearfix"><div class="col col-check"><i class="iconfont icon-checkbox"><span class=checkbox>√</span></i> 全选</div><div class="col col-img">&nbsp;</div><div class="col col-name">商品名称</div><div class="col col-price">单价</div><div class="col col-num">数量</div><div class="col col-total">小计</div><div class="col col-action">操作</div></div><div class=item-box><div class=item-table><div class="item-row clearfix"><div class="col col-check"><i class="iconfont icon-checkbox icon-checkbox"><span class=checkbox>√</span></i></div><div class="col col-img"><a href=./details.html><img alt="" src=../images/qwq.jpg width=80 height=80></a></div><div class="col col-name"><div class=tags></div><div class=tags></div><h3 class=name><a href=javascript:void(0)>米家驱蚊器智能版 白色</a></h3></div><div class="col col-price">59元<p class=pre-info></p></div><div class="col col-num"><div class="change-goods-num clearfix"><a href=javascript:void(0)><i class="iconfont cutNum">-</i> </a><input type=text autocomplete=off class=goods-num> <a href=javascript:void(0)><i class="iconfont addNum addToCart">+</i></a></div></div><div class="col col-total">59元<p class=pre-info></p></div><div class="col col-action"><a href=javascript:void(0); title=删除 class=del><i class="iconfont delProduct">X</i></a></div></div></div></div></div><div class="cart-bar clearfix"><div class=section-left><a href=# class=back-shopping>继续购物</a> <span class=cart-total>共 <i>1</i> 件商品，已选择 <i>0</i>件</span></div><span class=total-price>合计：<em>59</em>元 <a href=# class="btn btn-a btn-disabled">去结算</a></span><div class=no-select-tip>请勾选需要结算的商品<i class="arrow arrow-a"></i> <i class="arrow arrow-b"></i></div></div></div></div></div><div class=site-footer><div class=container><div class=footer-service><ul class="list-service clearfix"><li><a href=#>预约维修服务</a></li><li><a href=#>7天无理由退货</a></li><li><a href=#>15天免费换货</a></li><li><a href=#>520余家售后网点</a></li><li><a href=#>满99元包邮</a></li></ul></div><div class="footer-links clearfix"><dl class="col-links col-links-first"><dt>帮助中心</dt><dd><a href=#>账户管理</a></dd><dd><a href=#>购物指南</a></dd><dd><a href=#>订单操作</a></dd></dl><dl class=col-links><dt>服务支持</dt><dd><a href=#>售后政策</a></dd><dd><a href=#>自助服务</a></dd><dd><a href=#>相关下载</a></dd></dl><dl class=col-links><dt>线下门店</dt><dd><a href=#>小米之家</a></dd><dd><a href=#>服务网点</a></dd><dd><a href=#>授权体验店</a></dd></dl><dl class=col-links><dt>关于小米</dt><dd><a href=#>了解小米</a></dd><dd><a href=#>加入小米</a></dd><dd><a href=#>投资者关系</a></dd><dd><a href=#>企业社会责任</a></dd><dd><a href=#>廉洁举报</a></dd></dl><dl class=col-links><dt>关注我们</dt><dd><a href=#>新浪微博</a></dd><dd><a href=# id=J_siteWeixinCode>官方微信</a></dd><dd><a href=#>联系我们</a></dd><dd><a href=#>公益基金会</a></dd></dl><dl class=col-links><dt>特色服务</dt><dd><a href=#>F 码通道</a></dd><dd><a href=#>礼物码</a></dd><dd><a href=#>防伪查询</a></dd></dl><div class=col-contact><p class=phone>400-100-5678</p><p>8:00-18:00（仅收市话费）</p><a class="btn btn-line-primary btn-small J_contactBtn">人工客服</a></div></div></div></div><script src=../lib/jquery/jquery-1.12.4.js></script><script src=../lib/bootstrap-3.3.7-dist/js/bootstrap.js></script><script>//增加商品
+        $('.addToCart').click(function(){
+            $.ajax({
+                method:'post',
+                url:'./interface/addwq.php',
+                dataType:'json',
+                data:{
+                    id:'435435',
+                    name:"米家驱蚊器智能版 白色",
+                    img:'./images/qwq.jpg"',
+                    num:1,
+                    price:45
+                },
+                success:function(res){
+                    if(res.code){
+                        alert('商品加入成功')
+                    }else{
+                        alert('商品加入失败')
+                    }
+                }
+            })
+        })
+
+        //查询并显示购物车
+        function showCart(){
+            $.ajax({
+            url:'./interface/showlist.php',
+            dataType:'json',
+            success:function(res){
+                $('.item-table').html("");
+                $.each(res.data,function(index,item){
+                    $('.item-table').append(`
+                            <div class="item-row clearfix">
+                                <div class="col col-check">
+                                    <i class="iconfont icon-checkbox icon-checkbox"><span class="checkbox">√</span></i>
+                                </div>
+                                <div class="col col-img">
+                                    <a href="javascript:void(0)">
+                                    <img alt="" src="${item.product_img}" width="80" height="80">
+                                </a>
+                                </div>
+                                <div class="col col-name">
+                                    <div class="tags"></div>
+                                    <div class="tags"></div>
+                                    <h3 class="name">
+                                        <a href="javascript:void(0)">${item.product_name}</a>
+                                    </h3>
+                                </div>
+                                <div class="col col-price">${item.product_price}
+                                    
+                                    <p class="pre-info"></p>
+                                </div>
+                                <div class="col col-num">
+                                <div class="change-goods-num clearfix">
+                                    <a href="javascript:void(0)">
+                                        <i class="iconfont cutNum">-</i>
+                                    </a>
+                                    <input type="text" autocomplete="off" class="goods-num" value="${item.product_num}">
+                                    <a href="javascript:void(0)">
+                                        <i class="iconfont addNum">+</i>
+                                    </a>
+                                </div>
+                                </div>
+                                <div class="col col-total">${item.product_price}*${item.product_num}
+                                    <p class="pre-info"><!----></p>
+                                </div>
+                                <div class="col col-action">
+                                    <a href="javascript:void(0);" title="删除" class="delProduct">
+                                        <i class="iconfont">X</i>
+                                    </a>
+                                </div>
+                            </div>
+                    `)
+                })
+            }
+            })
+        }
+        showCart()
+
+        //删除商品
+        $('.item-table').on('click','.delProduct',function(){
+            var id = $(this).parent().children().eq(0).html();
+            $.ajax({
+                url:"./interface/delwq.php",
+                data:{
+                    id:id
+                },
+                dataType:'json',
+                success:function(res){
+                    if(res.code){
+                        showCart()
+                    }
+                }
+            })
+            
+        })
+        //增加商品
+        $('.addNum').click(function(){
+            $.ajax({
+                url:"./interface/updatewq.php",
+                dataType:'json',
+                data:{
+                    type:'add',
+                    id:'435435'
+                },
+                success:function(res){
+                    if(res.code){
+                        alert('商品增加成功')
+                    }
+                }
+            })
+        })</script></body></html>
